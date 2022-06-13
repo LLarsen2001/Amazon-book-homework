@@ -7,14 +7,7 @@ class Api::AuthorsController < ApplicationController
     def show
         render json: {author: @author}
     end
-    def create
-        @author = Author.new(author_params)
-        if(@artist.update(author_params))
-            render json: @author
-        else
-            render json: {errors: @author.errors.full_message}, status: 422
-        end
-    end
+    
     def update
         if(@author.update(author_params))
             render json: @author
@@ -26,6 +19,14 @@ class Api::AuthorsController < ApplicationController
         render json: @author.destroy
     end
     
+    def create
+        @author = Author.new(author_params)
+        if(@artist.update(author_params))
+            render json: @author
+        else
+            render json: {errors: @author.errors.full_message}, status: 422
+        end
+    end
     private
     def set_author
         @author = Author.find(params[:id])
